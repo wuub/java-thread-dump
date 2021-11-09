@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-world
+spec:
+  shareProcessNamespace: true
+  containers:
+  - name: hello-world
+    image: java-hello-world
+    imagePullPolicy: Never
+    ports:
+    - containerPort: 8080
+  - name: thread-dumper
+    image: java-hello-world
+    command: ["./thread-dumper.sh"]
+    imagePullPolicy: Never
+
+
+
