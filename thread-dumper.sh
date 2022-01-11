@@ -1,7 +1,6 @@
-#!/bin/bash -xe
+#!/bin/bash -e
 
 while true; do 
 	sleep 10
-	echo "Dumping Threads"
-	jstack $(pgrep -n java)
+	jstack $(pgrep -n java) > /dumps/thread-dump-$(date --iso-8601=seconds).thread
 done

@@ -10,10 +10,26 @@ spec:
     imagePullPolicy: Never
     ports:
     - containerPort: 8080
+    volumeMounts:
+    - mountPath: /dumps
+      name: dumps
+
+  - name: uploader-sidecar
+    image: uploader-sidecar
+    imagePullPolicy: Never
+    args: ["/dumps", "TEST-BUCKET", "dumps-prefix/", "--dry"]
+    volumeMounts:
+    - mountPath: /dumps
+      name: dumps     
+
   - name: thread-dumper
     image: java-hello-world
     command: ["./thread-dumper.sh"]
     imagePullPolicy: Never
+    volumeMounts:
+    - mountPath: /dumps
+      name: dumps
 
-
-
+  volumes:
+  - name: dumps
+    emptyDir: {}
